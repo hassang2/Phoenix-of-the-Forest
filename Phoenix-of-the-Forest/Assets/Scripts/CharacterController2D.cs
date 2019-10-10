@@ -5,6 +5,8 @@ public class CharacterController2D : MonoBehaviour {
    [SerializeField] private float jumpForce = 600f;                   // Amount of force added when the player jumps.
    [Range(0, 3)]   [SerializeField] private float slideSpeedMult = 1.5f;         // Amount of maxSpeed applied to Slideing movement. 1 = 100%
    [Range(0, 1)]   [SerializeField] private float slideTimerMax = 0.2f;
+   [Range(0.0f, 2.0f)] [SerializeField]  float slideCooldown = 0.7f;
+
    [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f; // How much to smooth out the movement
    [SerializeField] private bool airControl = true;                     // Whether or not a player can steer while jumping;
    [SerializeField] private LayerMask whatIsGround;                   // A mask determining what is ground to the character
@@ -18,7 +20,7 @@ public class CharacterController2D : MonoBehaviour {
    private Rigidbody2D rigidbody2D;
    private bool facingRight = true;  // For determining which way the player is currently facing.
    private Vector3 velocity = Vector3.zero;
-
+   private float timeSinceLastSlide = 0.0f;
    private float slideTimer = 0f;
    
    private Vector2 slideDir = new Vector2(1, 0);
@@ -65,9 +67,16 @@ public class CharacterController2D : MonoBehaviour {
             slide = true;
          }
       } else if (!isSliding && grounded) {
-         isSliding = true;
-         slideTimer = 0f;
+         if (timeSinceLastSlide >= slideCooldown) {
+            isSliding = true;
+            slideTimer = 0f;
+            timeSinceLastSlide = 0;
+         }
       }
+
+      // to prevent overflow
+      timeSinceLastSlide += Time.deltaTime;
+      timeSinceLastSlide = Mathf.Min(timeSinceLastSlide, 100);
 
       //only control the player if grounded or airControl is turned on
       if (grounded || airControl) {
