@@ -6,40 +6,44 @@ public class PlayerMovement : MonoBehaviour {
 
    public CharacterController2D controller;
 
+   
+   [SerializeField] float runSpeed = 40f;
 
-   [SerializeField]
-   float runSpeed = 40f;
+
    float horizontalMove = 0f;
 
    bool jump = false;
+   bool slide = false;
 
    // The duration the jump singal will be active once a jump button is pressed
    //[SerializeField]
    [SerializeField]
    [Range(0.0f, 1.0f)]
-   float jump_active_threshhold = 0.1f;
+   float jumpActiveThreshhold = 0.1f;
 
-   float jump_btn_timer = 0f;
+   float jumpBtnTimer = 0f;
 
-   // Update is called once per frame
    void Update() {
       horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
       if (Input.GetButtonDown("Jump")) {
          jump = true;
+      } else if (Input.GetButtonDown("Slide")) {
+         slide = true;
       }
 
    }
 
    void FixedUpdate() {
-      controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
-      Debug.Log(jump_btn_timer);
-       
-      if (jump_btn_timer > 0.1) {
-         jump = false;
-         jump_btn_timer = 0f;
-      } else if (jump) {
-         jump_btn_timer += Time.fixedDeltaTime;
-      }
+      controller.Move(horizontalMove * Time.fixedDeltaTime, jump, slide);
+      if (jump) jump = !jump;
+      if (slide) slide = !slide;
+      
+      //if (jumpBtnTimer > 0.1) {
+      //   jump = false;
+      //   jumpBtnTimer = 0f;
+      //} else if (jump) {
+      //   jumpBtnTimer += Time.fixedDeltaTime;
+      //}
    }
 }
