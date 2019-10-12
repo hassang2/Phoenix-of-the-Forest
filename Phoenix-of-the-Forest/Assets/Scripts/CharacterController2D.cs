@@ -2,42 +2,43 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour {
-   [SerializeField] private float jumpForce = 600f;                   // Amount of force added when the player jumps.
-   [Range(0, 3)]   [SerializeField] private float slideSpeedMult = 1.5f;         // Amount of maxSpeed applied to Slideing movement. 1 = 100%
-   [Range(0, 1)]   [SerializeField] private float slideTimerMax = 0.2f;
-   [Range(0.0f, 2.0f)] [SerializeField]  float slideCooldown = 0.7f;
+   [SerializeField] float jumpForce = 600f;                   // Amount of force added when the player jumps.
+   [Range(0, 3)] [SerializeField] float slideSpeedMult = 1.5f;         // Amount of maxSpeed applied to Slideing movement. 1 = 100%
+   [Range(0, 1)] [SerializeField] float slideTimerMax = 0.2f;
+   [Range(0.0f, 2.0f)] [SerializeField] float slideCooldown = 0.7f;
 
-   [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f; // How much to smooth out the movement
-   [SerializeField] private bool airControl = true;                     // Whether or not a player can steer while jumping;
-   [SerializeField] private LayerMask whatIsGround;                   // A mask determining what is ground to the character
-   [SerializeField] private Collider2D slideDisableCollider;            // A collider that will be disabled when Slideing
-   [SerializeField] private int maxJumps = 2;
+   [Range(0, .3f)] [SerializeField] float movementSmoothing = .05f; // How much to smooth out the movement
+   [SerializeField] bool airControl = true;                     // Whether or not a player can steer while jumping;
+   [SerializeField] LayerMask whatIsGround;                   // A mask determining what is ground to the character
+   [SerializeField] Collider2D slideDisableCollider;            // A collider that will be disabled when Slideing
+   [SerializeField] int maxJumps = 2;
 
-   private int curJumps = 0;
+   int curJumps = 0;
    const float groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-   private bool grounded;            // Whether or not the player is grounded.
+   bool grounded;            // Whether or not the player is grounded.
    const float ceilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
-   private Rigidbody2D rigidbody2D;
-   private bool facingRight = true;  // For determining which way the player is currently facing.
-   private Vector3 velocity = Vector3.zero;
-   private float timeSinceLastSlide = 0.0f;
-   private float slideTimer = 0f;
-   
-   private Vector2 slideDir = new Vector2(1, 0);
-   private bool isSliding = false;
+   new Rigidbody2D rigidbody2D;
+   bool facingRight = true;  // For determining which way the player is currently facing.
+   Vector3 velocity = Vector3.zero;
+   float speedMod = 1.0f;
 
-   private Transform groundCheck;                    // A position marking where to check if the player is grounded.
-   private Transform ceilingCheck;                   // A position marking where to check for ceilings
+   float timeSinceLastSlide = 0.0f;
+   float slideTimer = 0f;
+   Vector2 slideDir = new Vector2(1, 0);
+   bool isSliding = false;
 
-   private bool wasSliding = false;
+   Transform groundCheck;                    // A position marking where to check if the player is grounded.
+   Transform ceilingCheck;                   // A position marking where to check for ceilings
 
-   private void Awake() {
+   bool wasSliding = false;
+
+   void Awake() {
       rigidbody2D = GetComponent<Rigidbody2D>();
       groundCheck = transform.Find("GroundCheck");
       ceilingCheck = transform.Find("CeilingCheck");
    }
 
-   private bool IsGrounded() {
+   bool IsGrounded() {
       bool wasGrounded = grounded;
 
       // The player is grounded if a circlecast to the groundCheck position hits anything designated as ground
@@ -52,27 +53,13 @@ public class CharacterController2D : MonoBehaviour {
    }
 
 
-   private void FixedUpdate() {
+   void FixedUpdate() {
       grounded = IsGrounded();
    }
 
 
-   public void Move(float move, bool jump, bool slide) {
+   public void Move(float move) {
       grounded = IsGrounded();
-
-      // If Slideing, check to see if the character can stand up
-      if (!slide) {
-         // If the character has a ceiling preventing them from standing up, keep them Slideing
-         if (Physics2D.OverlapCircle(ceilingCheck.position, ceilingRadius, whatIsGround)) {
-            slide = true;
-         }
-      } else if (!isSliding && grounded) {
-         if (timeSinceLastSlide >= slideCooldown) {
-            isSliding = true;
-            slideTimer = 0f;
-            timeSinceLastSlide = 0;
-         }
-      }
 
       // to prevent overflow
       timeSinceLastSlide += Time.deltaTime;
@@ -80,24 +67,7 @@ public class CharacterController2D : MonoBehaviour {
 
       //only control the player if grounded or airControl is turned on
       if (grounded || airControl) {
-         // If Slideing
-         if (isSliding) {
-
-            // Increase the speed by the slideSpeed multiplier
-            move *= slideSpeedMult;
-            slideTimer += Time.deltaTime;
-            if (slideTimer > slideTimerMax) isSliding = false;
-
-
-            // Disable one of the colliders when Slideing
-            if (slideDisableCollider != null)
-               slideDisableCollider.enabled = false;
-         } else {
-            // Enable the collider when not Slideing
-            if (slideDisableCollider != null)
-               slideDisableCollider.enabled = true;
-         }
-
+         move *= speedMod;
          // Move the character by finding the target velocity
          Vector3 targetvelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
          // And then smoothing it out and applying it to the character
@@ -114,20 +84,66 @@ public class CharacterController2D : MonoBehaviour {
             Flip();
          }
       }
+   }
+
+   public bool Slide(bool shouldSlide) {
+      bool didSlide = false;
+      // If Slideing, check to see if the character can stand up
+      if (!shouldSlide) {
+         // If the character has a ceiling preventing them from standing up, keep them Slideing
+         if (Physics2D.OverlapCircle(ceilingCheck.position, ceilingRadius, whatIsGround)) {
+            shouldSlide = true;
+         }
+      } else if (!isSliding && grounded) {
+         if (timeSinceLastSlide >= slideCooldown) {
+            isSliding = true;
+            slideTimer = 0f;
+            timeSinceLastSlide = 0;
+            speedMod *= slideSpeedMult;
+         }
+      }
+
+      if (grounded && isSliding) {
+         // Increase the speed by the slideSpeed multiplier
+         
+         slideTimer += Time.deltaTime;
+         if (slideTimer > slideTimerMax) {
+            isSliding = false;
+            speedMod /= slideSpeedMult;
+         }
+
+         didSlide = true;
+         // Disable one of the colliders when Slideing
+         if (slideDisableCollider != null) {
+            slideDisableCollider.enabled = false;
+         } else {
+            // Enable the collider when not Slideing
+            if (slideDisableCollider != null) {
+               slideDisableCollider.enabled = true;
+            }
+         }
+      }
+
+      return didSlide;
+   }
+
+   public bool Jump(bool shouldJump) {
+      bool didJump = false;
       // If the player should jump...
-      if (jump && curJumps < maxJumps) {
+      if (shouldJump && curJumps < maxJumps) {
          // Add a vertical force to the player.
          grounded = false;
          rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
          rigidbody2D.AddForce(new Vector2(0f, jumpForce));
          curJumps++;
+         didJump = true;
       }
 
       if (grounded) {
          curJumps = 0;
       }
+      return didJump;
    }
-
 
    private void Flip() {
       // Switch the way the player is labelled as facing.

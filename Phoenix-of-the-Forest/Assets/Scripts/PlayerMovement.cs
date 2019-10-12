@@ -35,7 +35,11 @@ public class PlayerMovement : MonoBehaviour {
    }
 
    void FixedUpdate() {
-      controller.Move(horizontalMove * Time.fixedDeltaTime, jump, slide);
+      
+      controller.Move(horizontalMove * Time.fixedDeltaTime);
+      controller.Slide(slide);
+      controller.Jump(jump);
+
       if (jump) jump = !jump;
       if (slide) slide = !slide;
       
