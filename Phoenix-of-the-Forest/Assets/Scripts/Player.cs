@@ -1,26 +1,33 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-public class CharacterController2D : MonoBehaviour {
+public class Player : MonoBehaviour {
    [SerializeField] float jumpForce = 600f;                   // Amount of force added when the player jumps.
+   [SerializeField] int maxJumps = 2;
+
    [Range(0, 3)] [SerializeField] float slideSpeedMult = 1.5f;         // Amount of maxSpeed applied to Slideing movement. 1 = 100%
    [Range(0, 1)] [SerializeField] float slideTimerMax = 0.2f;
    [Range(0.0f, 2.0f)] [SerializeField] float slideCooldown = 0.7f;
+   [SerializeField] Collider2D slideDisableCollider;            // A collider that will be disabled when Slideing
 
    [Range(0, .3f)] [SerializeField] float movementSmoothing = .05f; // How much to smooth out the movement
+   [SerializeField] float moveSpeed = 40.0f;
+
+   
+
    [SerializeField] bool airControl = true;                     // Whether or not a player can steer while jumping;
    [SerializeField] LayerMask whatIsGround;                   // A mask determining what is ground to the character
-   [SerializeField] Collider2D slideDisableCollider;            // A collider that will be disabled when Slideing
-   [SerializeField] int maxJumps = 2;
 
+   
    int curJumps = 0;
    const float groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
    bool grounded;            // Whether or not the player is grounded.
    const float ceilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
    new Rigidbody2D rigidbody2D;
    bool facingRight = true;  // For determining which way the player is currently facing.
-   Vector3 velocity = Vector3.zero;
+   
    float speedMod = 1.0f;
+
+   GameObject weapon;
 
    float timeSinceLastSlide = 0.0f;
    float slideTimer = 0f;
@@ -30,17 +37,19 @@ public class CharacterController2D : MonoBehaviour {
    Transform groundCheck;                    // A position marking where to check if the player is grounded.
    Transform ceilingCheck;                   // A position marking where to check for ceilings
 
-   bool wasSliding = false;
+   //GameObject weapon;
 
    void Awake() {
       rigidbody2D = GetComponent<Rigidbody2D>();
       groundCheck = transform.Find("GroundCheck");
       ceilingCheck = transform.Find("CeilingCheck");
+
+      weapon = Instantiate(Resources.Load<GameObject>("Prefabs/Sword"));
+      weapon.transform.parent = this.transform;
+      weapon.transform.localPosition = new Vector2(0.5f, 0.8f);
    }
 
    bool IsGrounded() {
-      bool wasGrounded = grounded;
-
       // The player is grounded if a circlecast to the groundCheck position hits anything designated as ground
       // This can be done using layers instead but Sample Assets will not overwrite your project settings.
       Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
@@ -54,23 +63,22 @@ public class CharacterController2D : MonoBehaviour {
 
 
    void FixedUpdate() {
-      grounded = IsGrounded();
+      //grounded = IsGrounded();
    }
 
 
    public void Move(float move) {
       grounded = IsGrounded();
 
-      // to prevent overflow
-      timeSinceLastSlide += Time.deltaTime;
-      timeSinceLastSlide = Mathf.Min(timeSinceLastSlide, 100);
-
       //only control the player if grounded or airControl is turned on
       if (grounded || airControl) {
+         move *= moveSpeed;
          move *= speedMod;
+
          // Move the character by finding the target velocity
          Vector3 targetvelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
          // And then smoothing it out and applying it to the character
+         Vector3 velocity = Vector3.zero;
          rigidbody2D.velocity = Vector3.SmoothDamp(rigidbody2D.velocity, targetvelocity, ref velocity, movementSmoothing);
 
          // If the input is moving the player right and the player is facing left...
@@ -103,16 +111,13 @@ public class CharacterController2D : MonoBehaviour {
          }
       }
 
-      if (grounded && isSliding) {
+      if (isSliding) {
          // Increase the speed by the slideSpeed multiplier
-         
-         slideTimer += Time.deltaTime;
          if (slideTimer > slideTimerMax) {
             isSliding = false;
             speedMod /= slideSpeedMult;
          }
 
-         didSlide = true;
          // Disable one of the colliders when Slideing
          if (slideDisableCollider != null) {
             slideDisableCollider.enabled = false;
@@ -122,7 +127,13 @@ public class CharacterController2D : MonoBehaviour {
                slideDisableCollider.enabled = true;
             }
          }
+
+         slideTimer += Time.deltaTime;
+         didSlide = true;
       }
+
+      timeSinceLastSlide += Time.deltaTime;
+      timeSinceLastSlide = Mathf.Min(timeSinceLastSlide, 100); // to prevent overflow
 
       return didSlide;
    }
@@ -144,6 +155,11 @@ public class CharacterController2D : MonoBehaviour {
       }
       return didJump;
    }
+
+   public void Attack() {
+      Debug.Log("ATTACK");
+   }
+
 
    private void Flip() {
       // Switch the way the player is labelled as facing.

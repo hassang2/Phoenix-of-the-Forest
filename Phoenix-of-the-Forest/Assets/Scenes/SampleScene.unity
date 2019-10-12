@@ -311,7 +311,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7199998, y: 0.43000025, z: -12.711822}
+  m_LocalPosition: {x: -3.0899997, y: 0.43000025, z: -12.711822}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 847161488}
   m_Layer: 8
   m_Name: Champion
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -485,15 +485,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 600
+  maxJumps: 2
   slideSpeedMult: 1.5
   slideTimerMax: 0.2
+  slideCooldown: 0.7
+  slideDisableCollider: {fileID: 0}
   movementSmoothing: 0.05
+  moveSpeed: 40
   airControl: 1
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 4294967295
-  slideDisableCollider: {fileID: 0}
-  maxJumps: 2
+    m_Bits: 512
 --- !u!4 &847161486
 Transform:
   m_ObjectHideFlags: 0
@@ -502,7 +504,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847161482}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.72, y: -0.57, z: -2.7118218}
+  m_LocalPosition: {x: -3.09, y: -0.57, z: -2.7118218}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1286353105}
@@ -539,9 +541,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cece774439db1d046bebb87da4f64110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 847161485}
-  runSpeed: 40
-  jumpActiveThreshhold: 0.1
 --- !u!1 &897895653
 GameObject:
   m_ObjectHideFlags: 3
@@ -687,7 +686,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196621917}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7199998, y: 0.43000025, z: -12.711822}
+  m_LocalPosition: {x: -3.0899997, y: 0.43000025, z: -12.711822}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 897895654}
