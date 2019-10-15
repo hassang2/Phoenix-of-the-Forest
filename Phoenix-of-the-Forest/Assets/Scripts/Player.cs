@@ -16,11 +16,18 @@ public class Player : MonoBehaviour {
 
    [SerializeField] bool airControl = true;                     // Whether or not a player can steer while jumping;
    [SerializeField] LayerMask whatIsGround;                   // A mask determining what is ground to the character
-
+   [SerializeField] LayerMask whatIsWall;
    
    int curJumps = 0;
-   const float groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+
+   const float collisionRadius = .2f; // Radius of the overlap circle to determine if grounded
    bool grounded;            // Whether or not the player is grounded.
+
+   bool touchingRightWall;
+   bool touchingLeftWall;
+   Vector2 wallJumpDir = new Vector2(-2, 1);     // wall jumping direction to the left. multiply x by -1 for left
+   float wallJumpForceMult = 2.0f;
+
    const float ceilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
    new Rigidbody2D rigidbody2D;
    bool facingRight = true;  // For determining which way the player is currently facing.
@@ -31,18 +38,24 @@ public class Player : MonoBehaviour {
 
    float timeSinceLastSlide = 0.0f;
    float slideTimer = 0f;
-   Vector2 slideDir = new Vector2(1, 0);
    bool isSliding = false;
 
    Transform groundCheck;                    // A position marking where to check if the player is grounded.
    Transform ceilingCheck;                   // A position marking where to check for ceilings
+   Transform rightWallCheck;
+   Transform leftWallCheck;
 
    //GameObject weapon;
 
    void Awake() {
+      wallJumpDir.Normalize();
+
       rigidbody2D = GetComponent<Rigidbody2D>();
       groundCheck = transform.Find("GroundCheck");
       ceilingCheck = transform.Find("CeilingCheck");
+
+      rightWallCheck = transform.Find("RightWallCheck");
+      leftWallCheck  = transform.Find("LeftWallCheck");
 
       weapon = Instantiate(Resources.Load<GameObject>("Prefabs/Sword"));
       weapon.transform.parent = this.transform;
@@ -52,7 +65,7 @@ public class Player : MonoBehaviour {
    bool IsGrounded() {
       // The player is grounded if a circlecast to the groundCheck position hits anything designated as ground
       // This can be done using layers instead but Sample Assets will not overwrite your project settings.
-      Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, groundedRadius, whatIsGround);
+      Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, collisionRadius, whatIsGround);
       for (int i = 0; i < colliders.Length; i++) {
          if (colliders[i].gameObject != gameObject) {
             return true;
@@ -61,15 +74,40 @@ public class Player : MonoBehaviour {
       return false;
    }
 
+   // checks if we are touching any walls from left or right AND sets the values of rightWallCheck and leftWallCheck
+   void CheckTouchingWall() {
+      touchingRightWall = false;
+      touchingLeftWall  = false;
+
+      if (grounded) return;
+
+      Collider2D[] colliders = Physics2D.OverlapCircleAll(rightWallCheck.position, collisionRadius, whatIsWall);
+      for (int i = 0; i < colliders.Length; i++) {
+         if (colliders[i].gameObject != gameObject) {
+            touchingRightWall = true;
+            
+         }
+      }
+
+      colliders = Physics2D.OverlapCircleAll(leftWallCheck.position, collisionRadius, whatIsWall);
+      for (int i = 0; i < colliders.Length; i++) {
+         if (colliders[i].gameObject != gameObject) {
+            touchingLeftWall = true;
+         }
+      }
+   }
 
    void FixedUpdate() {
-      //grounded = IsGrounded();
+      grounded = IsGrounded();
+      CheckTouchingWall();
+
+      if (grounded) {
+         curJumps = 0;
+      }
    }
 
 
    public void Move(float move) {
-      grounded = IsGrounded();
-
       //only control the player if grounded or airControl is turned on
       if (grounded || airControl) {
          move *= moveSpeed;
@@ -145,14 +183,19 @@ public class Player : MonoBehaviour {
          // Add a vertical force to the player.
          grounded = false;
          rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
-         rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+         if (touchingRightWall) {
+            Vector2 dir = wallJumpDir * jumpForce * wallJumpForceMult;
+            rigidbody2D.AddForce(dir);
+         } else if (touchingLeftWall) {
+            Vector2 dir = new Vector2(wallJumpDir[0] * -1, wallJumpDir[1]);
+            rigidbody2D.AddForce(jumpForce * dir * wallJumpForceMult);
+         } else {
+            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+         }
          curJumps++;
          didJump = true;
       }
 
-      if (grounded) {
-         curJumps = 0;
-      }
       return didJump;
    }
 
@@ -160,14 +203,13 @@ public class Player : MonoBehaviour {
       Debug.Log("ATTACK");
    }
 
-
+   // Flip the sprite of the player
    private void Flip() {
       // Switch the way the player is labelled as facing.
       facingRight = !facingRight;
 
-      // Multiply the player's x local scale by -1.
-      Vector3 theScale = transform.localScale;
-      theScale.x *= -1;
-      transform.localScale = theScale;
+      Vector3 newScale = transform.Find("Sprite").localScale;
+      newScale.x *= -1;
+      transform.Find("Sprite").localScale = newScale;
    }
 }
