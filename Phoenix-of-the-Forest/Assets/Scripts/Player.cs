@@ -119,13 +119,8 @@ public class Player : MonoBehaviour {
          Vector3 velocity = Vector3.zero;
          rigidbody2D.velocity = Vector3.SmoothDamp(rigidbody2D.velocity, targetvelocity, ref velocity, movementSmoothing);
 
-         // If the input is moving the player right and the player is facing left...
-         if (move > 0 && !facingRight) {
-            // ... flip the player.
-            Flip();
-         }
-         // Otherwise if the input is moving the player left and the player is facing right...
-         else if (move < 0 && facingRight) {
+         // flip the sprite
+         if ((move > 0 && !facingRight) || (move < 0 && facingRight)) {
             // ... flip the player.
             Flip();
          }
@@ -208,8 +203,9 @@ public class Player : MonoBehaviour {
       // Switch the way the player is labelled as facing.
       facingRight = !facingRight;
 
-      Vector3 newScale = transform.Find("Sprite").localScale;
-      newScale.x *= -1;
-      transform.Find("Sprite").localScale = newScale;
+      //Vector3 newScale = transform.Find("Sprite").localScale;
+      //newScale.x *= -1;
+      //transform.Find("Sprite").localScale = newScale;
+      transform.Find("Sprite").GetComponent<SpriteRenderer>().flipX = !transform.Find("Sprite").GetComponent<SpriteRenderer>().flipX;
    }
 }
