@@ -114,10 +114,10 @@ public class Player : MonoBehaviour {
          move *= speedMod;
 
          // Move the character by finding the target velocity
-         Vector3 targetvelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
+         Vector3 targetVelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
          // And then smoothing it out and applying it to the character
          Vector3 velocity = Vector3.zero;
-         rigidbody2D.velocity = Vector3.SmoothDamp(rigidbody2D.velocity, targetvelocity, ref velocity, movementSmoothing);
+         rigidbody2D.velocity = Vector3.SmoothDamp(rigidbody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
 
          // flip the sprite
          if ((move > 0 && !facingRight) || (move < 0 && facingRight)) {
