@@ -3,21 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour {
-   E1 enemy;
-
+   [SerializeField] Enemy enemy;
 
    Rigidbody2D rb;
+   EnemyActionMode mode;
+   Transform target;
 
-   void Awake() {
-      rb = GetComponent<Rigidbody2D>();
-      enemy = new E1();
-   }
 
    void Start() {
-
+      enemy.Start();
+      mode = EnemyActionMode.Patrol;
+      rb = GetComponent<Rigidbody2D>();
    }
 
    void Update() {
-      enemy.Move(rb);
+      if (mode == EnemyActionMode.Patrol) enemy.Patrol(rb);
+      else if (mode == EnemyActionMode.Aggressive) {
+         enemy.MoveTowards(rb, target);
+         enemy.Attack(rb, target);
+      }
+   }
+
+
+   void OnTriggerEnter2D(Collider2D other) {
+      if (other.tag == "Player") {
+         target = other.transform;
+         mode = EnemyActionMode.Aggressive;
+      }
    }
 }

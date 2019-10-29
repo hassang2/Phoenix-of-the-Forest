@@ -45,8 +45,6 @@ public class Player : MonoBehaviour {
    Transform rightWallCheck;
    Transform leftWallCheck;
 
-   //GameObject weapon;
-
    void Awake() {
       wallJumpDir.Normalize();
 
@@ -115,13 +113,12 @@ public class Player : MonoBehaviour {
 
          // Move the character by finding the target velocity
          Vector3 targetVelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
-         // And then smoothing it out and applying it to the character
+         // Apply smoothing
          Vector3 velocity = Vector3.zero;
          rigidbody2D.velocity = Vector3.SmoothDamp(rigidbody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
 
          // flip the sprite
          if ((move > 0 && !facingRight) || (move < 0 && facingRight)) {
-            // ... flip the player.
             Flip();
          }
       }
