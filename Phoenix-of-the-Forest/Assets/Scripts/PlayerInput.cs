@@ -2,14 +2,15 @@
 
 public class PlayerInput : MonoBehaviour {
 
+   PlayerMovement playerMovement;
    Player player;
-
    float horizontalMove;
 
    bool jump = false;
    bool slide = false;
 
    void Awake() {
+      playerMovement = GetComponent<PlayerMovement>();
       player = GetComponent<Player>();
    }
    void Update() {
@@ -26,10 +27,10 @@ public class PlayerInput : MonoBehaviour {
    }
 
    void FixedUpdate() {
-      
-      player.Move(horizontalMove * Time.fixedDeltaTime);
-      bool didSlide = player.Slide(slide);
-      bool didJump = player.Jump(jump);
+
+      playerMovement.Move(horizontalMove * Time.fixedDeltaTime);
+      bool didSlide = playerMovement.Slide(slide);
+      bool didJump = playerMovement.Jump(jump);
       //player.Attack();
 
       if (jump) jump = false;

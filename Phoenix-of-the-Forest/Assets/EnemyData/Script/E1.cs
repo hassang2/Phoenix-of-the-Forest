@@ -22,24 +22,22 @@ public class E1 : Enemy {
       //rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
    }
 
-   public override void Attack(EnemyBehaviour eb, Transform target) {
-      throw new System.NotImplementedException();
+   public override void Attack(EnemyBehaviour eb, Player target) {
+      target.TakeDamage(this);
    }
 
-   public override void MoveTowards(EnemyBehaviour eb, Transform target) {
+   public override void MoveTowards(EnemyBehaviour eb, Player target) {
       Rigidbody2D rb = eb.GetComponent<Rigidbody2D>();
       Vector3 velocity = Vector3.zero;
       int direction = 1;
-      if (target.position.x < eb.transform.position.x) direction = -1;
+      if (target.transform.position.x < eb.transform.position.x) direction = -1;
 
-      Vector2 targetVelocity = Vector3.zero;
+      Vector2 targetVelocity;
 
       // Stop if we are close enough to attack
-      if (Vector2.Distance(eb.transform.position, target.position) <= attackRange) targetVelocity = Vector2.zero;
+      if (Vector2.Distance(eb.transform.position, target.transform.position) <= attackRange) targetVelocity = Vector2.zero;
       else targetVelocity = new Vector2(moveSpeed * 10f * direction, rb.velocity.y);
 
       rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmoothing);
-
-      Debug.Log("here");
    }
 }

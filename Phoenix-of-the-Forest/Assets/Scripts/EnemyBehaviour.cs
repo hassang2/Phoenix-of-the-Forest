@@ -6,7 +6,7 @@ public class EnemyBehaviour : MonoBehaviour {
    [SerializeField] Enemy enemy;
 
    EnemyActionMode mode;
-   Transform target;
+   Player target;
 
    float health;
 
@@ -28,10 +28,8 @@ public class EnemyBehaviour : MonoBehaviour {
 
    // Won't work if the player is already in the trigger area
    void OnTriggerEnter2D(Collider2D other) {
-      
       if (other.tag == "Player") {
-         Debug.Log("here");
-         target = other.transform;
+         target = other.GetComponent<Player>();
          mode = EnemyActionMode.Aggressive;
 
          // Cheap trick to ignore collision between player and enemy

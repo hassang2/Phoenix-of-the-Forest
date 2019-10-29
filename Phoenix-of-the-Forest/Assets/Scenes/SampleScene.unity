@@ -648,10 +648,11 @@ GameObject:
   m_Component:
   - component: {fileID: 847161486}
   - component: {fileID: 847161485}
-  - component: {fileID: 847161484}
+  - component: {fileID: 847161489}
+  - component: {fileID: 847161488}
   - component: {fileID: 847161483}
   - component: {fileID: 847161487}
-  - component: {fileID: 847161488}
+  - component: {fileID: 847161484}
   m_Layer: 8
   m_Name: Champion
   m_TagString: Player
@@ -778,6 +779,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cece774439db1d046bebb87da4f64110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &847161489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847161482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e0793051b06dcc4584e365d169f3d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &872218868
@@ -1204,7 +1217,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1203553571}
-  - component: {fileID: 1203553570}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -1212,18 +1224,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1203553570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1203553569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 779f21b044aa178409573b2f1434192d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1203553571
 Transform:
   m_ObjectHideFlags: 0
