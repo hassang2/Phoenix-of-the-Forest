@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
    float damage;
-   int health;
+   [SerializeField] PlayerHealth health;
 
+   [SerializeField] int maxHealth = 6;
+   [SerializeField] float defaultDamage = 10000.0f;
    void Start() {
-      damage = 10000.0f;
-      health = 6;
+      damage = defaultDamage;
+      health.SetValue(maxHealth);
    }
 
    void Update() {
@@ -20,6 +22,6 @@ public class Player : MonoBehaviour {
    }
 
    public void TakeDamage(Enemy attacker) {
-      health -= attacker.damage;
+      health.AddValue(-attacker.damage);
    }
 }

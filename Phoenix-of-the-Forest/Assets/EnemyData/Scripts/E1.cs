@@ -14,6 +14,7 @@ public class E1 : Enemy {
    public override void Patrol(EnemyBehaviour eb) {
       // TODO
       // The following code only moves the enemy in one direciton
+
       //Rigidbody2D rb = eb.GetComponent<Rigidbody2D>();
 
       //float move =  moveSpeed;

@@ -21,7 +21,10 @@ public class EnemyBehaviour : MonoBehaviour {
          enemy.Patrol(this);
       } else if (mode == EnemyActionMode.Aggressive) {
          enemy.MoveTowards(this, target);
-         enemy.Attack(this, target);
+
+         if (enemy.attackRange > Vector2.Distance(transform.position, target.transform.position)) {
+            enemy.Attack(this, target);
+         }
       }
    }
 
