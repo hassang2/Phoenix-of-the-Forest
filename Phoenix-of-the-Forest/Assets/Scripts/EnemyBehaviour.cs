@@ -9,6 +9,7 @@ public class EnemyBehaviour : MonoBehaviour {
    Player target;
 
    float health;
+   float attackTimer = 0.0f;
 
    void Start() {
       enemy.Start();
@@ -22,10 +23,12 @@ public class EnemyBehaviour : MonoBehaviour {
       } else if (mode == EnemyActionMode.Aggressive) {
          enemy.MoveTowards(this, target);
 
-         if (enemy.attackRange > Vector2.Distance(transform.position, target.transform.position)) {
+         if (enemy.attackRange > Vector2.Distance(transform.position, target.transform.position) && attackTimer > enemy.attackSpeed) {
             enemy.Attack(this, target);
+            attackTimer = 0.0f;
          }
       }
+      attackTimer = Mathf.Min(attackTimer + Time.deltaTime, 1000.0f); // to prevent overflow
    }
 
 

@@ -26,7 +26,7 @@ public class GuardianScript : MonoBehaviour
         Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
         guard.position = Vector2.Lerp(guard.position, pos, .5f);
 
-        if (Input.GetMouseButtonDown(0)&&!enemyX&&!platX)
+        if (Input.GetMouseButtonDown(0) && !enemyX && !platX)
         {
             
             platX = true;
@@ -58,8 +58,9 @@ public class GuardianScript : MonoBehaviour
 
         if (col.gameObject.tag == "Enemy" && Input.GetMouseButtonDown(0))
         {
-            col.GetComponent<RotateBox>().Freeze();
-        }
+         //col.GetComponent<RotateBox>().Freeze();
+         col.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+      }
            
         
         

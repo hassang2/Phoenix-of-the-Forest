@@ -12,6 +12,7 @@ public abstract class Enemy : ScriptableObject {
    public int damage;
    public float moveSpeed;
    public float attackRange;
+   public float attackSpeed; // attacks per second
 
    [SerializeField] protected float movementSmoothing = 0.0f;
 

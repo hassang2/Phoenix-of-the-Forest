@@ -6,9 +6,6 @@ using UnityEngine;
 public class E1 : Enemy {
 
    public override void Start() {
-      //health = 100.0f;
-      //damage = 5.0f;
-      //moveSpeed = 1.0f;
    }
    
    public override void Patrol(EnemyBehaviour eb) {
