@@ -100,7 +100,6 @@ public class PlayerMovement : MonoBehaviour {
       
    }
 
-
    public void Move(float move) {
       grounded = IsGrounded();
       //only control the player if grounded or airControl is turned on
