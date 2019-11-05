@@ -30,7 +30,7 @@ public class GuardianScript : MonoBehaviour
         {
             
             platX = true;
-            plat1 = Instantiate(Resources.Load<GameObject>("Prefabs/Platform"));
+            plat1 = Instantiate(Resources.Load<GameObject>("Platform_Prefabs/platform_vines"));
             plat1.transform.position = guard.position;
             StartCoroutine(Kill());
 
@@ -58,9 +58,9 @@ public class GuardianScript : MonoBehaviour
 
         if (col.gameObject.tag == "Enemy" && Input.GetMouseButtonDown(0))
         {
-         //col.GetComponent<RotateBox>().Freeze();
-         col.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-      }
+            col.GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            StartCoroutine(Unfreeze(col));
+        }
            
         
         
@@ -72,5 +72,11 @@ public class GuardianScript : MonoBehaviour
         platX = false;
         yield return new WaitForSeconds(.5f);
         Destroy(plat2);
+    }
+    IEnumerator Unfreeze(Collider2D col)
+    {
+        yield return new WaitForSeconds(5);
+        col.GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        col.GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }
