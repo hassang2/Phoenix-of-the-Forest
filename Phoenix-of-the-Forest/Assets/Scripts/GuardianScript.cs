@@ -28,8 +28,7 @@ public class GuardianScript : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && !enemyX && !platX)
         {
-            
-            platX = true;
+         platX = true;
             plat1 = Instantiate(Resources.Load<GameObject>("Platform_Prefabs/platform_vines"));
             plat1.transform.position = guard.position;
             StartCoroutine(Kill());

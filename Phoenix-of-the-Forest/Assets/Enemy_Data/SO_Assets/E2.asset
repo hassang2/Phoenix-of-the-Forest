@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3e395a40dabc64f8481c34ce7ecdec, type: 3}
+  m_Name: E2
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  damage: 1
+  moveSpeed: 0.5
+  attackRange: 10
+  attackSpeed: 3
+  type: 0
+  movementSmoothing: 0.05
+  projectileSpeed: 10
+  projectileObject: {fileID: 1496458913276835119, guid: c1e9a9327b394334786f6602cf1c6015,
+    type: 3}
