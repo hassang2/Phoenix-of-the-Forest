@@ -19,10 +19,9 @@ public class Projectile : MonoBehaviour {
       return owner;
    }
 
-   private void OnTriggerEnter(Collider other) {
-      Debug.Log("YEET");
-      if (other.tag == "Player") {
-         other.gameObject.GetComponent<Player>().TakeDamage(owner);
+   void OnTriggerEnter2D(Collider2D other) {
+      if (other.gameObject.layer == LayerMask.NameToLayer("Platform") || other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+         transform.gameObject.SetActive(false);
       }
    }
 

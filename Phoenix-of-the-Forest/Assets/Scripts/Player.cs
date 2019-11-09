@@ -24,10 +24,5 @@ public class Player : MonoBehaviour {
    public void TakeDamage(Enemy attacker) {
       health.AddValue(-attacker.damage);
    }
-
-   void OnTriggerEnter2D(Collider2D other) {
-      if (other.tag == "Projectile") {
-         TakeDamage(other.GetComponent<Projectile>().GetOwner());
-      }
-   }
+   
 }
