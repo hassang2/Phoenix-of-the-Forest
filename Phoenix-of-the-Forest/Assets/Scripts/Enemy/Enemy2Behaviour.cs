@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy1Behaviour : BaseEnemeyBehaviour {
-   //[SerializeField] new E1 enemy;
+public class Enemy2Behaviour : BaseEnemeyBehaviour {
+   //[SerializeField] new E2 enemy;
 
    EnemyActionMode mode;
    Player target;
 
-   float health;
    float attackTimer = 0.0f;
 
+   // for enemies with projectiles only
+   GameObject projectileInstance = null;
+
    new void Start() {
-      base.Start();
+      //base.Start();
       health = enemy.maxHealth;
       mode = EnemyActionMode.Patrol;
-      if (enemy.type == EnemyType.Ranged) {
-         //projectileInstance = Instantiate<GameObject>(enem);
-         //projectileInstance.SetActive(false);
-      }
+
+      projectileInstance = Instantiate<GameObject>(((E2)enemy).projectileObject);
+      projectileInstance.GetComponent<Projectile>().SetOwner(enemy);
+
+      projectileInstance.SetActive(false);      
    }
 
    new void Update() {
@@ -35,6 +38,17 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
       attackTimer = Mathf.Min(attackTimer + Time.deltaTime, 1000.0f); // to prevent overflow
    }
 
+   new void Attack(Player target) {
+      Vector3 dir = target.transform.position - transform.position;
+      dir.Normalize();
+
+      projectileInstance.SetActive(true);
+      projectileInstance.transform.position = transform.position;
+      projectileInstance.GetComponent<Rigidbody2D>().velocity = (dir * ((E2)enemy).projectileSpeed);
+
+
+      //StartCoroutine(DisableProjectile());
+   }
 
    // Won't work if the player is already in the trigger area
    void OnTriggerEnter2D(Collider2D other) {
@@ -46,5 +60,10 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
          Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), other.GetComponent<BoxCollider2D>());
          Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), other.GetComponent<CircleCollider2D>());
       }
+   }
+
+   IEnumerator DisableProjectile() {
+      yield return new WaitForSeconds(3);
+      projectileInstance.SetActive(false);
    }
 }

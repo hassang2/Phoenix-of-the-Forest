@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour {
+public class UIHealthBar : MonoBehaviour {
 
    [SerializeField] PlayerHealth health;
    void Update() {
-      GetComponent<Text>().text = health.GetValue().ToString(); 
+      GetComponent<Text>().text = health.GetUIValue().ToString(); 
    }
 }

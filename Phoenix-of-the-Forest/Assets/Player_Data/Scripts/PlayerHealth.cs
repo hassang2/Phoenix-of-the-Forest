@@ -9,6 +9,10 @@ public class PlayerHealth : ScriptableObject {
       return health;
    }
 
+   public int GetUIValue() {
+      return Mathf.Max(health, 0);
+   }
+
    public void SetValue(int h) {
       Assert.IsTrue(h >= 0);
       health = h;

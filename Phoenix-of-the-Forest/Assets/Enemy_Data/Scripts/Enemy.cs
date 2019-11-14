@@ -13,7 +13,7 @@ public enum EnemyType {
 }
 
 public abstract class Enemy : ScriptableObject {
-   public float maxHealth;
+   public int maxHealth;
    public int damage;
    public float moveSpeed;
    public float attackRange;

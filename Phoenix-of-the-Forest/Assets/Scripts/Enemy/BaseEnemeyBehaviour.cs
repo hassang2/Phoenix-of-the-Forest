@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEnemeyBehaviour : MonoBehaviour {
+public class BaseEnemeyBehaviour : MonoBehaviour, IDamagable {
    [SerializeField] protected Enemy enemy;
-
+   protected int health;
    protected void Start() {
 
    }
@@ -33,7 +33,14 @@ public class BaseEnemeyBehaviour : MonoBehaviour {
 
    }
 
-   public virtual void Attack(Player target) {
-      target.TakeDamage(this.enemy);
+   public void Attack(Player target) {
+      target.TakeDamage(enemy.damage);
+   }
+
+   public virtual void TakeDamage(int amount) {
+      health -= amount;
+      if (health <= 0) {
+         Destroy(gameObject);
+      }
    }
 }

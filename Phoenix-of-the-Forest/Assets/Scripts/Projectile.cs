@@ -2,14 +2,6 @@
 
 public class Projectile : MonoBehaviour {
    Enemy owner;
-   void Start() {
-
-   }
-
-   // Update is called once per frame
-   void Update() {
-
-   }
 
    public void SetOwner(Enemy e) {
       owner = e;
