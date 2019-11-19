@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour {
    [Range(0, .3f)] [SerializeField] float movementSmoothing = .05f; // How much to smooth out the movement
    [SerializeField] float moveSpeed = 40.0f;
 
+   
+
    [SerializeField] bool airControl = true;                     // Whether or not a player can steer while jumping;
    [SerializeField] LayerMask whatIsGround;                   // A mask determining what is ground to the character
    [SerializeField] LayerMask whatIsWall;

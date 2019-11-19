@@ -13,7 +13,6 @@ public class PlayerInput : MonoBehaviour {
       playerMovement = GetComponent<PlayerMovement>();
       player = GetComponent<Player>();
    }
-
    void Update() {
       horizontalMove = Input.GetAxisRaw("Horizontal");
 

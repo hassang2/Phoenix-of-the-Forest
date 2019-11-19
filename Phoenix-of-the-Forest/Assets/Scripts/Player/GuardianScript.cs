@@ -26,9 +26,9 @@ public class GuardianScript : MonoBehaviour
         Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
         guard.position = Vector2.Lerp(guard.position, pos, .5f);
 
-      if (Input.GetMouseButtonDown(0) && !enemyX && !platX)
+        if (Input.GetMouseButtonDown(0) && !enemyX && !platX)
         {
-            platX = true;
+         platX = true;
             plat1 = Instantiate(Resources.Load<GameObject>("Platform_Prefabs/platform_vines"));
             plat1.transform.position = guard.position;
             StartCoroutine(Kill());
