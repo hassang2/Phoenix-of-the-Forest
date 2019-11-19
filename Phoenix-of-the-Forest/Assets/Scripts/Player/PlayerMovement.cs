@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour {
       leftWallCheck  = transform.Find("LeftWallCheck");
    }
 
-   bool IsGrounded() {
+   public bool IsGrounded() {
       // The player is grounded if a circlecast to the groundCheck position hits anything designated as ground
       // This can be done using layers instead but Sample Assets will not overwrite your project settings.
       Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, collisionRadius, whatIsGround);
