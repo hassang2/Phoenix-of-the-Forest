@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
+
 [CreateAssetMenu(menuName = "Player/PlayerHealth")]
 public class PlayerHealth : ScriptableObject {
    int health;
+  
 
    public int GetValue() {
       return health;
