@@ -24,7 +24,8 @@ public class SFX : MonoBehaviour
     void Update()
     {
         JumpSFX();
-        WalkSFX();
+        AttackSFX();
+        
     }
     void WalkSFX()
     {
@@ -50,6 +51,18 @@ public class SFX : MonoBehaviour
         if (inAir && player.IsGrounded())
         {
             inAir = false;
+        }
+    }
+
+    void AttackSFX()
+    {
+        if(Input.GetButtonDown("Attack") && player.IsGrounded())
+        {
+            source.PlayOneShot(clips[3]);
+        }
+        else if(Input.GetButtonDown("Attack") && !player.IsGrounded())
+        {
+            source.PlayOneShot(clips[4],.2f);
         }
     }
 }
