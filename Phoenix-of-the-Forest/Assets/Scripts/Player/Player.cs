@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour, IDamagable {
    int damage;
@@ -9,6 +9,8 @@ public class Player : MonoBehaviour, IDamagable {
    [SerializeField] int maxHealth = 6;
    [SerializeField] int defaultDamage = 10000;
    [SerializeField] float attackTime = 0.4f; // How long the player attackBox stays active after pressing attack
+
+   [SerializeField] UnityEvent onDeath;
 
    bool isAttacking; // whether or not the player attackbox is active
    GameObject colliderObject;
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour, IDamagable {
 
    public void TakeDamage(int amount) {
       health.AddValue(-amount);
+      if (health.GetValue() <= 0) onDeath.Invoke();
    }
 
    public int GetDamageValue() {

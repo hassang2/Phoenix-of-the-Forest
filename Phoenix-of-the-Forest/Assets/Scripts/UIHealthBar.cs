@@ -5,6 +5,6 @@ public class UIHealthBar : MonoBehaviour {
 
    [SerializeField] PlayerHealth health;
    void Update() {
-      GetComponent<Text>().text = health.GetUIValue().ToString(); 
+      GetComponentInChildren<Text>().text = health.GetUIValue().ToString(); 
    }
 }
