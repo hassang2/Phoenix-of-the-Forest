@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy1Behaviour : BaseEnemeyBehaviour {
-   //[SerializeField] new E1 enemy;
 
    EnemyActionMode mode;
    Player target;
@@ -14,10 +13,6 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
       base.Start();
       health = enemy.maxHealth;
       mode = EnemyActionMode.Patrol;
-      if (enemy.type == EnemyType.Ranged) {
-         //projectileInstance = Instantiate<GameObject>(enem);
-         //projectileInstance.SetActive(false);
-      }
    }
 
    new void Update() {
