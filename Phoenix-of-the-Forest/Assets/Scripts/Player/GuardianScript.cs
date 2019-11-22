@@ -13,20 +13,22 @@ public class GuardianScript : MonoBehaviour {
 
    bool flipX = false;
 
+   [SerializeField] float hoverOffest;
+   Vector3 hoverOffestVector;
+
    // Start is called before the first frame update
    void Start() {
       platX = false;
       enemyX = false;
+      hoverOffestVector = new Vector3(0, hoverOffest, 0);
    }
 
    // Update is called once per frame
    void Update() {
       Rigidbody2D rb = GetComponent<Rigidbody2D>();
-      Rigidbody2D champRB = champ.GetComponent<Rigidbody2D>();
 
-      Vector2 velocity = Vector2.zero;
-      rb.velocity = Vector2.SmoothDamp(rb.velocity, champRB.velocity, ref velocity, 0.1f);
-
+      Vector2 targetVelocity = champ.transform.position + hoverOffestVector - transform.position;
+      rb.velocity = targetVelocity * 3.0f;
 
       flipX = transform.position.x < champ.transform.position.x;
       GetComponentInChildren<SpriteRenderer>().flipX = flipX;
@@ -39,7 +41,6 @@ public class GuardianScript : MonoBehaviour {
          plat1.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
 
          StartCoroutine(Kill());
-
       }
    }
 

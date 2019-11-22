@@ -653,6 +653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champ: {fileID: 847161482}
+  hoverOffest: 4
 --- !u!1 &612975276
 GameObject:
   m_ObjectHideFlags: 0
