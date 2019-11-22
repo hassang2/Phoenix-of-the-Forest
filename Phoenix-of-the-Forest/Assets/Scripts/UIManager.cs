@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour {
    }
 
    public void DisplayDeathUI(bool state) {
-      Debug.Log("HEY");
       deathUI.SetActive(state);
    }
 }

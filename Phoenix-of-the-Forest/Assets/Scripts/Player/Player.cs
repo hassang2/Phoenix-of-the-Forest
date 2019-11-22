@@ -12,6 +12,7 @@ public class Player : MonoBehaviour, IDamagable {
 
    [SerializeField] UnityEvent onDeath;
 
+
    bool isAttacking; // whether or not the player attackbox is active
    GameObject colliderObject;
    void Start() {

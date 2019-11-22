@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour {
    int curJumps = 0;
 
    const float collisionRadius = .2f; // Radius of the overlap circle to determine if grounded
-   bool grounded;            // Whether or not the player is grounded.
+   bool grounded { get;  set; }            // Whether or not the player is grounded.
 
    bool touchingRightWall;
    bool touchingLeftWall;
@@ -33,8 +33,6 @@ public class PlayerMovement : MonoBehaviour {
    bool facingRight = true;  // For determining which way the player is currently facing.
    
    float speedMod = 1.0f;
-
-   GameObject weapon;
 
    float timeSinceLastSlide = 0.0f;
    float slideTimer = 0f;
