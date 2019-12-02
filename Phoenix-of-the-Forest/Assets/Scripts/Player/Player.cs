@@ -46,4 +46,8 @@ public class Player : MonoBehaviour, IDamagable {
       colliderObject.SetActive(false);
       isAttacking = false;
    }
+
+   public bool IsAttacking() {
+      return isAttacking;
+   }
 }

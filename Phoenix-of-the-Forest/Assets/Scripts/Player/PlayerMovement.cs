@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour {
    float slideTimer = 0f;
    bool isSliding = false;
 
+   bool isWalking;
+
    Transform groundCheck;                    // A position marking where to check if the player is grounded.
    Transform ceilingCheck;                   // A position marking where to check for ceilings
    Transform rightWallCheck;
@@ -52,6 +54,10 @@ public class PlayerMovement : MonoBehaviour {
 
       rightWallCheck = transform.Find("RightWallCheck");
       leftWallCheck  = transform.Find("LeftWallCheck");
+   }
+
+   void Start() {
+      isWalking = false;
    }
 
    public bool IsGrounded() {
@@ -107,6 +113,10 @@ public class PlayerMovement : MonoBehaviour {
 
          // Move the character by finding the target velocity
          Vector3 targetVelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
+
+         if (Mathf.Abs(targetVelocity.x) > 0) isWalking = true;
+         else isWalking = false;
+
          // Apply smoothing
          Vector3 velocity = Vector3.zero;
          rigidbody2D.velocity = Vector3.SmoothDamp(rigidbody2D.velocity, targetVelocity, ref velocity, movementSmoothing);
@@ -195,6 +205,10 @@ public class PlayerMovement : MonoBehaviour {
       //newScale.x *= -1;
       //transform.Find("Sprite").localScale = newScale;
       transform.Find("Sprite").GetComponent<SpriteRenderer>().flipX = !transform.Find("Sprite").GetComponent<SpriteRenderer>().flipX;
+   }
+
+   public bool IsWalking() {
+      return isWalking;
    }
 
 
