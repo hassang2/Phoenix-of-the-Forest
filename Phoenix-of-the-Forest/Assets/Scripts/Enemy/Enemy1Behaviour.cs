@@ -26,7 +26,7 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
       } else if (mode == EnemyActionMode.Aggressive) {
          MoveTowards(target);
 
-         if (enemy.attackRange > Vector2.Distance(transform.position, target.transform.position) && attackTimer > enemy.attackSpeed) {
+         if (enemy.attackRange >= Vector2.Distance(transform.position, target.transform.position) && attackTimer > enemy.attackSpeed) {
             Attack(target);
             attackTimer = 0.0f;
             animationController.PlayAttack();

@@ -31,14 +31,14 @@ public class BaseEnemeyBehaviour : MonoBehaviour, IDamagable {
       Vector2 targetVelocity;
 
       // Stop if we are close enough to attack
-      if (Vector2.Distance(transform.position, target.transform.position) <= enemy.attackRange)
+      if (Vector2.Distance(transform.position, target.transform.position) + 0.1f <= enemy.attackRange)
          targetVelocity = Vector2.zero;
       else
          targetVelocity = new Vector2(enemy.moveSpeed * direction, rb.velocity.y);
 
-      isMoving = Mathf.Abs(targetVelocity.x) > 0.0f;
+      isMoving = Mathf.Abs(targetVelocity.x) > 0.05f;
 
-      
+      print(targetVelocity);
 
       rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, enemy.movementSmoothing);
    }
