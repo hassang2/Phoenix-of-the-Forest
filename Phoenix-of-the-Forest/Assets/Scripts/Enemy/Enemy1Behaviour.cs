@@ -48,4 +48,34 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
          Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), other.GetComponent<CircleCollider2D>());
       }
    }
+   protected override void MoveTowards(Player target) {
+      Rigidbody2D rb = GetComponent<Rigidbody2D>();
+      Vector3 velocity = Vector3.zero;
+      direction = 1;
+      if (target.transform.position.x < transform.position.x) direction = -1;
+
+      Vector2 targetVelocity;
+
+      // Stop if we are close enough to attack
+      if (Vector2.Distance(transform.position, target.transform.position) + 0.1f <= enemy.attackRange)
+         targetVelocity = Vector2.zero;
+      else
+         targetVelocity = new Vector2(enemy.moveSpeed * direction, rb.velocity.y);
+
+      
+      // gives the object an upward jump in case its collider is stuck on tile colliders
+      if (targetVelocity.magnitude > 0.05f && rb.velocity.magnitude < 0.05f)
+         targetVelocity += new Vector2(0, 20f);
+
+      isMoving = Mathf.Abs(targetVelocity.x) > 0.05f;
+
+
+      rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, enemy.movementSmoothing);
+   }
+
+
+
+
+
+         
 }

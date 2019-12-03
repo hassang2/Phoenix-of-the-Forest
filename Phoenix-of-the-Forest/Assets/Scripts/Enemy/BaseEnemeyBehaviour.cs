@@ -38,8 +38,6 @@ public class BaseEnemeyBehaviour : MonoBehaviour, IDamagable {
 
       isMoving = Mathf.Abs(targetVelocity.x) > 0.05f;
 
-      print(targetVelocity);
-
       rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, enemy.movementSmoothing);
    }
 
