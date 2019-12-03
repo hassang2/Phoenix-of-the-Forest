@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 5520821096244169872}
   - component: {fileID: 5520821096244169870}
   m_Layer: 10
-  m_Name: Enemy2
+  m_Name: RangedEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

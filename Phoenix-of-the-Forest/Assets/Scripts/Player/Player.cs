@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, IDamagable {
    [SerializeField] UnityEvent onDeath;
 
 
-   bool isAttacking; // whether or not the player attackbox is active
+   public bool isAttacking { get; private set; } // whether or not the player attackbox is active
    GameObject colliderObject;
    void Start() {
       damage = defaultDamage;
@@ -45,9 +45,5 @@ public class Player : MonoBehaviour, IDamagable {
       yield return new WaitForSeconds(attackTime);
       colliderObject.SetActive(false);
       isAttacking = false;
-   }
-
-   public bool IsAttacking() {
-      return isAttacking;
    }
 }

@@ -7,12 +7,17 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
    EnemyActionMode mode;
    Player target;
 
-   float attackTimer = 0.0f;
+   float attackTimer;
+   SnakeAnimationController animationController;
 
    new void Start() {
       base.Start();
       health = enemy.maxHealth;
       mode = EnemyActionMode.Patrol;
+
+      attackTimer = 0.0f;
+
+      animationController = GetComponentInChildren<SnakeAnimationController>();
    }
 
    new void Update() {
@@ -24,9 +29,11 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
          if (enemy.attackRange > Vector2.Distance(transform.position, target.transform.position) && attackTimer > enemy.attackSpeed) {
             Attack(target);
             attackTimer = 0.0f;
+            animationController.PlayAttack();
+
          }
       }
-      attackTimer = Mathf.Min(attackTimer + Time.deltaTime, 1000.0f); // to prevent overflow
+      attackTimer = Mathf.Min(attackTimer + Time.fixedDeltaTime, 1000.0f); // to prevent overflow
    }
 
 

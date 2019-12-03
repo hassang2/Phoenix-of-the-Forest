@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour {
    int curJumps = 0;
 
    const float collisionRadius = .2f; // Radius of the overlap circle to determine if grounded
-   bool grounded { get;  set; }            // Whether or not the player is grounded.
+   public bool grounded { get;  private set; }            // Whether or not the player is grounded.
 
    bool touchingRightWall;
    bool touchingLeftWall;
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour {
    float slideTimer = 0f;
    bool isSliding = false;
 
-   bool isWalking;
+   public bool isWalking { get; private set; }
 
    Transform groundCheck;                    // A position marking where to check if the player is grounded.
    Transform ceilingCheck;                   // A position marking where to check for ceilings
@@ -114,8 +114,8 @@ public class PlayerMovement : MonoBehaviour {
          // Move the character by finding the target velocity
          Vector3 targetVelocity = new Vector2(move * 10f, rigidbody2D.velocity.y);
 
-         if (Mathf.Abs(targetVelocity.x) > 0) isWalking = true;
-         else isWalking = false;
+         isWalking = Mathf.Abs(targetVelocity.x) > 0.0f;
+
 
          // Apply smoothing
          Vector3 velocity = Vector3.zero;
@@ -206,10 +206,4 @@ public class PlayerMovement : MonoBehaviour {
       //transform.Find("Sprite").localScale = newScale;
       transform.Find("Sprite").GetComponent<SpriteRenderer>().flipX = !transform.Find("Sprite").GetComponent<SpriteRenderer>().flipX;
    }
-
-   public bool IsWalking() {
-      return isWalking;
-   }
-
-
 }

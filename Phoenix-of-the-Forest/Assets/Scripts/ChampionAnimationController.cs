@@ -17,13 +17,10 @@ public class ChampionAnimationController : MonoBehaviour {
 
 
    void Update() {
-      bool grounded = playerMovement.IsGrounded();
-      anim.SetBool("isGrounded", grounded);
+      anim.SetBool("isGrounded", playerMovement.grounded);
 
-      bool isAttacking = player.IsAttacking();
-      anim.SetBool("isAttacking", isAttacking);
+      anim.SetBool("isAttacking", player.isAttacking);
 
-      bool isWalking = playerMovement.IsWalking();
-      anim.SetBool("isWalking", isWalking);
+      anim.SetBool("isWalking", playerMovement.isWalking);
    }
 }

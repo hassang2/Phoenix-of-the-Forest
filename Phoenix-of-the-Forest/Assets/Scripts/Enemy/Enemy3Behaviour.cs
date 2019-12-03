@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy2Behaviour : BaseEnemeyBehaviour {
-   //[SerializeField] new E2 enemy;
-
+public class Enemy3Behaviour : BaseEnemeyBehaviour {
    EnemyActionMode mode;
    Player target;
 
@@ -21,7 +19,7 @@ public class Enemy2Behaviour : BaseEnemeyBehaviour {
       projectileInstance = Instantiate<GameObject>(enemy.projectileObject);
       projectileInstance.GetComponent<Projectile>().SetOwner(enemy);
 
-      projectileInstance.SetActive(false);      
+      projectileInstance.SetActive(false);
    }
 
    new void Update() {
@@ -45,9 +43,6 @@ public class Enemy2Behaviour : BaseEnemeyBehaviour {
       projectileInstance.SetActive(true);
       projectileInstance.transform.position = transform.position;
       projectileInstance.GetComponent<Rigidbody2D>().velocity = (dir * enemy.projectileSpeed);
-
-
-      //StartCoroutine(DisableProjectile());
    }
 
    // Won't work if the player is already in the trigger area
@@ -65,5 +60,36 @@ public class Enemy2Behaviour : BaseEnemeyBehaviour {
    IEnumerator DisableProjectile() {
       yield return new WaitForSeconds(3);
       projectileInstance.SetActive(false);
+   }
+
+   protected override void MoveTowards(Player target) {
+      Rigidbody2D rb = GetComponent<Rigidbody2D>();
+      Vector3 velocity = Vector3.zero;
+      direction = 1;
+      if (target.transform.position.x < transform.position.x) direction = -1;
+
+      int yDirection = 1;
+      if (target.transform.position.y < transform.position.y) yDirection = -1;
+
+      Vector2 targetVelocity;
+
+      // Stop if we are close enough to attack
+      if (Vector2.Distance(transform.position, target.transform.position) <= enemy.attackRange)
+         targetVelocity = Vector2.zero;
+      else {
+         if (Mathf.Abs(transform.position.x - target.transform.position.x) < 1.0f) {
+            targetVelocity = new Vector2(direction, yDirection);
+         } else {
+            targetVelocity = new Vector2(direction, 0);
+         }
+
+         targetVelocity = targetVelocity.normalized * enemy.moveSpeed;
+      }
+
+      isMoving = Mathf.Abs(targetVelocity.x) > 0.0f;
+
+
+
+      rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, enemy.movementSmoothing);
    }
 }
