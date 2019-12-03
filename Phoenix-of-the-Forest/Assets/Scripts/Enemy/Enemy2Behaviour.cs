@@ -18,7 +18,7 @@ public class Enemy2Behaviour : BaseEnemeyBehaviour {
       health = enemy.maxHealth;
       mode = EnemyActionMode.Patrol;
 
-      projectileInstance = Instantiate<GameObject>(((E2)enemy).projectileObject);
+      projectileInstance = Instantiate<GameObject>(enemy.projectileObject);
       projectileInstance.GetComponent<Projectile>().SetOwner(enemy);
 
       projectileInstance.SetActive(false);      
@@ -44,7 +44,7 @@ public class Enemy2Behaviour : BaseEnemeyBehaviour {
 
       projectileInstance.SetActive(true);
       projectileInstance.transform.position = transform.position;
-      projectileInstance.GetComponent<Rigidbody2D>().velocity = (dir * ((E2)enemy).projectileSpeed);
+      projectileInstance.GetComponent<Rigidbody2D>().velocity = (dir * enemy.projectileSpeed);
 
 
       //StartCoroutine(DisableProjectile());

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   damage: 1
-  moveSpeed: 0.5
+  moveSpeed: 5
   attackRange: 10
   attackSpeed: 3
-  type: 0
+  type: 1
   movementSmoothing: 0.05
   projectileSpeed: 10
   projectileObject: {fileID: 1496458913276835119, guid: c1e9a9327b394334786f6602cf1c6015,

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy1Behaviour : BaseEnemeyBehaviour {
-   //[SerializeField] new E1 enemy;
 
    EnemyActionMode mode;
    Player target;
 
-   float attackTimer = 0.0f;
+   float attackTimer;
+   SnakeAnimationController animationController;
 
    new void Start() {
       base.Start();
       health = enemy.maxHealth;
       mode = EnemyActionMode.Patrol;
-      if (enemy.type == EnemyType.Ranged) {
-         //projectileInstance = Instantiate<GameObject>(enem);
-         //projectileInstance.SetActive(false);
-      }
+
+      attackTimer = 0.0f;
+
+      animationController = GetComponentInChildren<SnakeAnimationController>();
    }
 
    new void Update() {
@@ -26,12 +26,14 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
       } else if (mode == EnemyActionMode.Aggressive) {
          MoveTowards(target);
 
-         if (enemy.attackRange > Vector2.Distance(transform.position, target.transform.position) && attackTimer > enemy.attackSpeed) {
+         if (enemy.attackRange >= Vector2.Distance(transform.position, target.transform.position) && attackTimer > enemy.attackSpeed) {
             Attack(target);
             attackTimer = 0.0f;
+            animationController.PlayAttack();
+
          }
       }
-      attackTimer = Mathf.Min(attackTimer + Time.deltaTime, 1000.0f); // to prevent overflow
+      attackTimer = Mathf.Min(attackTimer + Time.fixedDeltaTime, 1000.0f); // to prevent overflow
    }
 
 
@@ -46,4 +48,34 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
          Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), other.GetComponent<CircleCollider2D>());
       }
    }
+   protected override void MoveTowards(Player target) {
+      Rigidbody2D rb = GetComponent<Rigidbody2D>();
+      Vector3 velocity = Vector3.zero;
+      direction = 1;
+      if (target.transform.position.x < transform.position.x) direction = -1;
+
+      Vector2 targetVelocity;
+
+      // Stop if we are close enough to attack
+      if (Vector2.Distance(transform.position, target.transform.position) + 0.1f <= enemy.attackRange)
+         targetVelocity = Vector2.zero;
+      else
+         targetVelocity = new Vector2(enemy.moveSpeed * direction, rb.velocity.y);
+
+      
+      // gives the object an upward jump in case its collider is stuck on tile colliders
+      if (targetVelocity.magnitude > 0.05f && rb.velocity.magnitude < 0.05f)
+         targetVelocity += new Vector2(0, 20f);
+
+      isMoving = Mathf.Abs(targetVelocity.x) > 0.05f;
+
+
+      rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, enemy.movementSmoothing);
+   }
+
+
+
+
+
+         
 }

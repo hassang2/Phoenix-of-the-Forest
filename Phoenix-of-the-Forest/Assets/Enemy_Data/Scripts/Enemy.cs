@@ -22,4 +22,8 @@ public abstract class Enemy : ScriptableObject {
    [SerializeField] public EnemyType type;
 
    [SerializeField] public float movementSmoothing = 0.0f;
+
+   // for ranged enemies only:
+   [SerializeField] public float projectileSpeed = 10.0f;
+   [SerializeField] public GameObject projectileObject;
 }
