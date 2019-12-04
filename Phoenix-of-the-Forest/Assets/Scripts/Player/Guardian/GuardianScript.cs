@@ -9,7 +9,7 @@ public class GuardianScript : MonoBehaviour {
    GameObject plat1;
    GameObject plat2;
    bool platX;
-
+   public bool enemyX;
    bool flipX = false;
 
     [SerializeField] float hoverOffest;
@@ -39,7 +39,7 @@ public class GuardianScript : MonoBehaviour {
 
 
 
-        if (Input.GetMouseButtonDown(0) && !enemyX && !platX)
+        if (Input.GetMouseButtonDown(0) && !platX && !enemyX)
         {
             platX = true;
             float randomNumber = Random.Range(1, 3);
@@ -79,7 +79,7 @@ public class GuardianScript : MonoBehaviour {
       yield return new WaitForSeconds(.5f);
       Destroy(plat2);
    }
-   IEnumerator Unfreeze(Collider2D col) {
+   public IEnumerator Unfreeze(Collider2D col) {
       yield return new WaitForSeconds(5);
       col.GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
       col.GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;

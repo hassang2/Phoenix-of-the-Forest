@@ -19,11 +19,15 @@ public class GuardianFreeze : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GetComponentInParent<GuardianScript>().enemyX = enemyx;
 
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0) && enemyx)
         {
+            GetComponentInParent<GuardianTimer>().Freeze();
 
+            freezeBox.GetComponentInParent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            StartCoroutine(GetComponentInParent<GuardianScript>().Unfreeze(freezeBox));
         }
     }
 
@@ -36,8 +40,11 @@ public class GuardianFreeze : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D col)
     {
-        enemyx = false;
+        if (col.gameObject.CompareTag("Enemy"))
+        {
+            enemyx = false;
+        }
     }
 }

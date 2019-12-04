@@ -654,7 +654,6 @@ GameObject:
   - component: {fileID: 532131534}
   - component: {fileID: 532131533}
   - component: {fileID: 532131532}
-  - component: {fileID: 532131535}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -744,20 +743,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &532131535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532131530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c169818d2068db3428c94c52ca80ae91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  freeImg: {fileID: 606921699}
-  platImg: {fileID: 274554577}
 --- !u!1 &559246740
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,6 +754,7 @@ GameObject:
   - component: {fileID: 559246743}
   - component: {fileID: 559246745}
   - component: {fileID: 559246742}
+  - component: {fileID: 559246741}
   m_Layer: 0
   m_Name: Guardian
   m_TagString: Untagged
@@ -776,6 +762,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &559246741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 559246740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c169818d2068db3428c94c52ca80ae91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  freeImg: {fileID: 606921699}
+  platImg: {fileID: 274554577}
 --- !u!50 &559246742
 Rigidbody2D:
   serializedVersion: 4
@@ -827,6 +827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   champ: {fileID: 847161482}
+  enemyX: 0
   hoverOffest: 4
 --- !u!1 &606921697
 GameObject:
@@ -4740,6 +4741,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339699544706968293, guid: 47811bfaae731ad419f6bf497d1cee93,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8339699544706968299, guid: 47811bfaae731ad419f6bf497d1cee93,
         type: 3}
