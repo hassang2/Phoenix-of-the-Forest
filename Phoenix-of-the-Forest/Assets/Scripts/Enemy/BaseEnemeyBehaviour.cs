@@ -11,6 +11,8 @@ public class BaseEnemeyBehaviour : MonoBehaviour, IDamagable {
 
    public int direction { get; protected set; }
 
+   protected AnimationController animationController;
+
 
    protected void Start() {
       isMoving = false;

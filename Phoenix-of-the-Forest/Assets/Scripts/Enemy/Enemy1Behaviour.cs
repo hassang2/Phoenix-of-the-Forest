@@ -8,7 +8,6 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
    Player target;
 
    float attackTimer;
-   SnakeAnimationController animationController;
 
    new void Start() {
       base.Start();
@@ -30,7 +29,6 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
             Attack(target);
             attackTimer = 0.0f;
             animationController.PlayAttack();
-
          }
       }
       attackTimer = Mathf.Min(attackTimer + Time.fixedDeltaTime, 1000.0f); // to prevent overflow

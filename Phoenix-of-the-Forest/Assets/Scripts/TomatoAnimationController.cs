@@ -1,7 +1,8 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class SnakeAnimationController : AnimationController {
+public class TomatoAnimationController : AnimationController {
    bool facingRight;
 
    bool isAttacking;
@@ -9,7 +10,7 @@ public class SnakeAnimationController : AnimationController {
    void Start() {
       anim = GetComponent<Animator>();
 
-      enemy = GetComponentInParent<Enemy1Behaviour>();
+      enemy = GetComponentInParent<Enemy2Behaviour>();
       facingRight = true;
       isAttacking = false;
    }
@@ -34,5 +35,5 @@ public class SnakeAnimationController : AnimationController {
    IEnumerator DisableAttackAnimation() {
       yield return new WaitForSeconds(0.2f);
       isAttacking = false;
-  }
+   }
 }

@@ -21,7 +21,8 @@ public class Enemy2Behaviour : BaseEnemeyBehaviour {
       projectileInstance = Instantiate<GameObject>(enemy.projectileObject);
       projectileInstance.GetComponent<Projectile>().SetOwner(enemy);
 
-      projectileInstance.SetActive(false);      
+      projectileInstance.SetActive(false);
+      animationController = GetComponentInChildren<TomatoAnimationController>();
    }
 
    new void Update() {
@@ -33,6 +34,7 @@ public class Enemy2Behaviour : BaseEnemeyBehaviour {
          if (enemy.attackRange > Vector2.Distance(transform.position, target.transform.position) && attackTimer > enemy.attackSpeed) {
             Attack(target);
             attackTimer = 0.0f;
+            animationController.PlayAttack();
          }
       }
       attackTimer = Mathf.Min(attackTimer + Time.deltaTime, 1000.0f); // to prevent overflow
@@ -45,7 +47,6 @@ public class Enemy2Behaviour : BaseEnemeyBehaviour {
       projectileInstance.SetActive(true);
       projectileInstance.transform.position = transform.position;
       projectileInstance.GetComponent<Rigidbody2D>().velocity = (dir * enemy.projectileSpeed);
-
 
       //StartCoroutine(DisableProjectile());
    }

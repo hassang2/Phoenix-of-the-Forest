@@ -20,5 +20,5 @@ MonoBehaviour:
   type: 1
   movementSmoothing: 0.05
   projectileSpeed: 10
-  projectileObject: {fileID: 1496458913276835119, guid: c1e9a9327b394334786f6602cf1c6015,
+  projectileObject: {fileID: 7979546485812937485, guid: e46a600a8b60dc44ea61292326b6923c,
     type: 3}
