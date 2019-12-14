@@ -63,7 +63,7 @@ public class Enemy1Behaviour : BaseEnemeyBehaviour {
       
       // gives the object an upward jump in case its collider is stuck on tile colliders
       if (targetVelocity.magnitude > 0.05f && rb.velocity.magnitude < 0.05f)
-         targetVelocity += new Vector2(0, 20f);
+         targetVelocity += new Vector2(0, 25.0f);
 
       isMoving = Mathf.Abs(targetVelocity.x) > 0.05f;
 

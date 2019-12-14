@@ -17,4 +17,12 @@ public class GameManager : MonoBehaviour {
    public void RestartScene() {
       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
    }
+
+   public void LoadMainMenu() {
+      SceneManager.LoadScene("MainMenu");
+   }
+
+   public void CloseGame() {
+      Application.Quit();
+   }
 }

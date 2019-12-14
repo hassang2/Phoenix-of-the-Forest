@@ -2,27 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeadZone : MonoBehaviour
-{
-    [SerializeField] GameManager gm;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            gm.RestartScene();
-        }
-    }
+public class DeadZone : MonoBehaviour {
+   private void OnTriggerEnter2D(Collider2D collision) {
+      if (collision.gameObject.CompareTag("Player"))
+         collision.gameObject.GetComponent<Player>().TakeDamage(100);
+   }
 }

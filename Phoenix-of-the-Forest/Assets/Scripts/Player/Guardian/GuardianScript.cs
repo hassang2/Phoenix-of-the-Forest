@@ -18,8 +18,10 @@ public class GuardianScript : MonoBehaviour {
 
    // Start is called before the first frame update
    void Start() {
-        platX = false;
-        hoverOffestVector = new Vector3(0, hoverOffest, 0);
+      platX = false;
+      hoverOffestVector = new Vector3(0, hoverOffest, 0);
+
+      transform.position = champ.transform.position;
         
    }
 
@@ -34,9 +36,6 @@ public class GuardianScript : MonoBehaviour {
         GetComponentInChildren<SpriteRenderer>().flipX = flipX;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        
-
 
 
         if (Input.GetMouseButtonDown(0) && !platX && !enemyX)
