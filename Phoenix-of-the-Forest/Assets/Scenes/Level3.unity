@@ -16346,6 +16346,11 @@ PrefabInstance:
       propertyPath: champ
       value: 
       objectReference: {fileID: 58120944}
+    - target: {fileID: 4034413353421818960, guid: 6043ce5ae13e9934c931bb660a6dc0aa,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 649217419
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6043ce5ae13e9934c931bb660a6dc0aa, type: 3}
 --- !u!1 &1394420226 stripped
