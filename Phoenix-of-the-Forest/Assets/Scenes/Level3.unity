@@ -535,6 +535,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19b84059e934ffb45a6e5756ba974a82, type: 3}
+--- !u!1 &168907280 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2128938528265993585, guid: 19b84059e934ffb45a6e5756ba974a82,
+    type: 3}
+  m_PrefabInstance: {fileID: 168907279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &212811391
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee10cb023459e4be7b59affcc08cf5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 168907280}
   parallaxEffect: 0.6
 --- !u!212 &212811394
 SpriteRenderer:
@@ -827,7 +833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee10cb023459e4be7b59affcc08cf5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 168907280}
   parallaxEffect: 1
 --- !u!212 &310046477
 SpriteRenderer:
@@ -16108,7 +16114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee10cb023459e4be7b59affcc08cf5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 168907280}
   parallaxEffect: 0.7
 --- !u!212 &1208087976
 SpriteRenderer:
@@ -16577,7 +16583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee10cb023459e4be7b59affcc08cf5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 168907280}
   parallaxEffect: 0.2
 --- !u!212 &1879127246
 SpriteRenderer:
