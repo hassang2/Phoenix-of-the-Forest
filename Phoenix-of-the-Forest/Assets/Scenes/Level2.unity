@@ -10477,7 +10477,7 @@ PrefabInstance:
     - target: {fileID: 2128938528265993587, guid: 19b84059e934ffb45a6e5756ba974a82,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.19
+      value: -6.1899996
       objectReference: {fileID: 0}
     - target: {fileID: 2128938528265993587, guid: 19b84059e934ffb45a6e5756ba974a82,
         type: 3}
@@ -10551,7 +10551,7 @@ PrefabInstance:
     - target: {fileID: 6683218073015765547, guid: 5bae9be563a31454f939d4d081b6cd4c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.19
+      value: -6.1899996
       objectReference: {fileID: 0}
     - target: {fileID: 6683218073015765547, guid: 5bae9be563a31454f939d4d081b6cd4c,
         type: 3}
@@ -11546,7 +11546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee10cb023459e4be7b59affcc08cf5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 1186137370}
   parallaxEffect: 0.6
 --- !u!212 &1018032675
 SpriteRenderer:
@@ -11931,7 +11931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee10cb023459e4be7b59affcc08cf5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 1186137370}
   parallaxEffect: 1
 --- !u!212 &1156088750
 SpriteRenderer:
@@ -12051,6 +12051,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24503a1309370cc449ad316c86c2ad73, type: 3}
+--- !u!1 &1186137370 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2128938528265993585, guid: 19b84059e934ffb45a6e5756ba974a82,
+    type: 3}
+  m_PrefabInstance: {fileID: 508197064}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1195140091
 GameObject:
   m_ObjectHideFlags: 0
@@ -12405,7 +12411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee10cb023459e4be7b59affcc08cf5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 1186137370}
   parallaxEffect: 0.2
 --- !u!212 &1226031151
 SpriteRenderer:
@@ -13203,7 +13209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee10cb023459e4be7b59affcc08cf5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  cam: {fileID: 1186137370}
   parallaxEffect: 0.7
 --- !u!212 &1636787127
 SpriteRenderer:
